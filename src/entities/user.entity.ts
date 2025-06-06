@@ -1,0 +1,27 @@
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+export enum UserRole {
+  Guest = 'guest',
+  User = 'user',
+  Admin = 'admin',
+  Librarian = 'librarian',
+}
+
+@Entity('users')
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ unique: true })
+  username: string;
+
+  @Column()
+  password: string;
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.Guest,
+  })
+  role: UserRole;
+}
